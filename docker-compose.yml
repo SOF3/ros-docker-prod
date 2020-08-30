@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  master:
+    build: master
+  foo:
+    build: foo
+    links:
+      - master:master

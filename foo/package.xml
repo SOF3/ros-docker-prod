@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+	<name>foo</name>
+	<version>0.0.0</version>
+	<description>Talker</description>
+
+	<maintainer email="m2.robocon@gmail.com">m2robocon</maintainer>
+	<license>nil</license>
+
+	<build_depend>message_generation</build_depend>
+	<exec_depend>message_runtime</exec_depend>
+	<depend>rospy</depend>
+</package>

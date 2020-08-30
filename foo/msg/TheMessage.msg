@@ -1,0 +1,2 @@
+bool first
+bool second
