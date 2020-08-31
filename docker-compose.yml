@@ -1,9 +1,12 @@
-version: '2'
+version: '3.4'
 
 services:
   master:
-    build: master
-  foo:
-    build: foo
+    build:
+      context: base
+      target: master
+  ps4:
+    build: base
     links:
       - master:master
+    command: m2_ps4 ps4_to_msg.py enable_led_thread:=true dev:=input/js0
