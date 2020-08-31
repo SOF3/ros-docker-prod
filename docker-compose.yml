@@ -11,7 +11,9 @@ services:
       - master:master
     command: m2_ps4 ps4_to_msg.py enable_led_thread:=true dev:=input/js0
   foo:
-    build: base
+    build:
+      context: base
+      target: catkin-remake
     links:
       - master:master
     volumes:

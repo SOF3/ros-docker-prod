@@ -12,4 +12,9 @@ add_message_files(
 	TheMessage.msg
 )
 
+generate_messages(DEPENDENCIES
+)
+
+catkin_package(LIBRARIES ${PROJECT_NAME} CATKIN_DEPENDS message_runtime)
+
 include_directories(${catkin_INCLUDE_DIRS})

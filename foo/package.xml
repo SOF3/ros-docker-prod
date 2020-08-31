@@ -7,6 +7,7 @@
 	<maintainer email="m2.robocon@gmail.com">m2robocon</maintainer>
 	<license>nil</license>
 
+	<build_depend>catkin</build_depend>
 	<build_depend>message_generation</build_depend>
 	<exec_depend>message_runtime</exec_depend>
 	<depend>rospy</depend>
