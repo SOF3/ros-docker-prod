@@ -1,5 +1,7 @@
 FROM ros:noetic-ros-base AS master
 
+RUN apt-get update && apt-get install -y ros-noetic-joy
+
 EXPOSE 11311/tcp
 
 ENTRYPOINT ["bash", "-ic", "source /opt/ros/noetic/setup.bash && roscore"]
@@ -18,7 +20,7 @@ FROM master AS catkin-remake
 
 ENV ROS_MASTER_URI=http://master:11311
 
-RUN apt-get update && apt-get install -y curl python2.7 python3.8
+RUN apt-get install -y curl python2.7 python3.8
 RUN ln -s /usr/bin/python2.7 /usr/bin/python
 RUN ln -s /usr/bin/python2.7 /usr/bin/python2
 RUN curl https://bootstrap.pypa.io/get-pip.py | python2
@@ -27,6 +29,8 @@ RUN pip install future pyyaml rospkg
 COPY --from=cloner /root/src /root/catkin_ws/src
 RUN ln -s /root/catkin_ws/src /src
 
+RUN apt-get install -y udev
+
 WORKDIR /root/catkin_ws
 RUN bash -ic "source /opt/ros/noetic/setup.bash && catkin_make"
 
@@ -34,6 +38,12 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc && \
 	echo "source devel/setup.bash" >> /root/.bashrc
 
 ENTRYPOINT ["bash", "-ic", "catkin_make && rosrun $0 $1"]
+
+FROM catkin-remake AS launch
+ENTRYPOINT ["bash", "-ic", "roslaunch $0 $1"]
+
+FROM catkin-remake AS catkin-remake-launch
+ENTRYPOINT ["bash", "-ic", "catkin_make && roslaunch $0 $1"]
 
 FROM catkin-remake AS direct
 ENTRYPOINT ["bash", "-ic", "rosrun $0 $1"]

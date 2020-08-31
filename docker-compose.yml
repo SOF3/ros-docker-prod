@@ -5,11 +5,21 @@ services:
     build:
       context: base
       target: master
-  ps4:
+  joy:
     build: base
+    devices:
+      - /dev/input/js0
     links:
       - master:master
-    command: m2_ps4 ps4_to_msg.py enable_led_thread:=true dev:=input/js0
+    command: joy joy_node dev:=/dev/input/js0
+  ps4:
+    build: base
+    devices:
+      - /dev/input/js0
+    links:
+      - master:master
+    command: m2_ps4 ps4_to_msg.py dev:=/dev/input/js0
+    privileged: true
   foo:
     build:
       context: base
