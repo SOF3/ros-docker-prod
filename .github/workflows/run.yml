@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: echo -en ${{secrets.SSH_KEY}} > base/id_rsa
       - run: docker-compose build
       - run: docker-compose up -d
       - run: sleep 5
