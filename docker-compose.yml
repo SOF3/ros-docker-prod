@@ -10,3 +10,10 @@ services:
     links:
       - master:master
     command: m2_ps4 ps4_to_msg.py enable_led_thread:=true dev:=input/js0
+  foo:
+    build: base
+    links:
+      - master:master
+    volumes:
+      - ./foo:/src/foo:ro
+    command: foo talker.py

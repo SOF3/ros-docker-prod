@@ -24,6 +24,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python2
 RUN pip install future pyyaml rospkg
 
 COPY --from=cloner /root/src /root/catkin_ws/src
+RUN ln -s /root/catkin_ws/src /src
 
 WORKDIR /root/catkin_ws
 RUN bash -ic "source /opt/ros/noetic/setup.bash && catkin_make"
